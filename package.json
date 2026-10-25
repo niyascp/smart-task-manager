@@ -1,0 +1,24 @@
+{
+  "name": "smarttask-pro",
+  "version": "1.0.0",
+  "description": "SmartTask Pro - A premium productivity dashboard with Gemini AI integration.",
+  "type": "module",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node --watch server.js",
+    "test-ai": "node test-api.js"
+  },
+  "keywords": [
+    "gemini",
+    "productivity",
+    "task-manager"
+  ],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@google/genai": "^2.3.0",
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2"
+  }
+}

@@ -1,0 +1,800 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="SmartTask Pro - A premium productivity web app with Gemini AI chat and intelligent task planning.">
+  <title>SmartTask Pro — Productivity Dashboard & Gemini AI</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body class="dark-mode">
+  <div class="app-layout">
+    <!-- Sidebar Navigation -->
+    <aside id="sidebar" class="sidebar" aria-label="Main Navigation">
+      <div class="sidebar-header">
+        <div class="brand">
+          <div class="brand-icon">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 2L2 7l10 5 10-5-10-5z"></path>
+              <path d="M2 17l10 5 10-5"></path>
+              <path d="M2 12l10 5 10-5"></path>
+            </svg>
+          </div>
+          <div class="brand-text">
+            <span class="brand-name">SmartTask</span>
+            <span class="brand-badge">PRO</span>
+          </div>
+        </div>
+        <button type="button" id="sidebarCloseBtn" class="sidebar-close-btn" aria-label="Close sidebar">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+          </svg>
+        </button>
+      </div>
+
+      <nav class="sidebar-nav">
+        <ul class="nav-list">
+          <li>
+            <button type="button" class="nav-item active" data-view="dashboard">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="3" y="3" width="7" height="7"></rect>
+                <rect x="14" y="3" width="7" height="7"></rect>
+                <rect x="14" y="14" width="7" height="7"></rect>
+                <rect x="3" y="14" width="7" height="7"></rect>
+              </svg>
+              <span>Dashboard</span>
+            </button>
+          </li>
+          <li>
+            <button type="button" class="nav-item" data-view="tasks">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="9 11 12 14 22 4"></polyline>
+                <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path>
+              </svg>
+              <span>My Tasks</span>
+              <span id="sidebarTasksCount" class="nav-badge">0</span>
+            </button>
+          </li>
+          <li>
+            <button type="button" class="nav-item" data-view="assistant">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+              </svg>
+              <span>Gemini AI</span>
+              <span class="nav-badge pulse">AI</span>
+            </button>
+          </li>
+          <li>
+            <button type="button" class="nav-item" data-view="settings">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="3"></circle>
+                <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+              </svg>
+              <span>Settings</span>
+            </button>
+          </li>
+        </ul>
+      </nav>
+
+      <div class="sidebar-footer">
+        <div class="storage-indicator">
+          <div class="storage-dot"></div>
+          <span>Offline Storage &bull; Secure Local API</span>
+        </div>
+      </div>
+    </aside>
+
+    <!-- Mobile Sidebar Backdrop Overlay -->
+    <div id="sidebarBackdrop" class="sidebar-backdrop" aria-hidden="true"></div>
+
+    <!-- Main Content Area -->
+    <div class="main-wrapper">
+      <!-- Top Navigation Header -->
+      <header class="top-nav">
+        <div class="top-nav-left">
+          <button type="button" id="mobileMenuBtn" class="btn-icon mobile-menu-btn" aria-label="Open menu">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="3" y1="12" x2="21" y2="12"></line>
+              <line x1="3" y1="6" x2="21" y2="6"></line>
+              <line x1="3" y1="18" x2="21" y2="18"></line>
+            </svg>
+          </button>
+          <div class="welcome-block">
+            <h1 id="welcomeGreeting" class="welcome-title">Good Day, User</h1>
+            <p id="todayDate" class="welcome-date">Loading date...</p>
+          </div>
+        </div>
+
+        <div class="top-nav-right">
+          <!-- AI Server Status Pill -->
+          <div id="topAiStatusPill" class="ai-status-pill loading" title="Checking Gemini API status...">
+            <span class="ai-status-dot"></span>
+            <span id="topAiStatusText">Checking AI...</span>
+          </div>
+
+          <!-- Theme Toggle Button -->
+          <button id="themeToggleBtn" class="btn-icon" aria-label="Toggle dark/light theme" title="Toggle theme">
+            <svg id="themeIcon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="5"></circle>
+              <line x1="12" y1="1" x2="12" y2="3"></line>
+              <line x1="12" y1="21" x2="12" y2="23"></line>
+              <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+              <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+              <line x1="1" y1="12" x2="3" y2="12"></line>
+              <line x1="21" y1="12" x2="23" y2="12"></line>
+              <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+              <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+            </svg>
+          </button>
+
+          <!-- User Avatar Badge -->
+          <div class="user-profile" title="Productivity Workspace">
+            <div class="avatar">
+              <span>ME</span>
+            </div>
+            <span class="user-status-dot" title="Active"></span>
+          </div>
+        </div>
+      </header>
+
+      <!-- Scrollable Main Container -->
+      <main class="content-container">
+        
+        <!-- ============================================== -->
+        <!-- VIEW: DASHBOARD (Overview + Tasks)             -->
+        <!-- ============================================== -->
+        <div id="viewDashboard" class="view-panel active">
+          
+          <!-- Key Metrics Grid -->
+          <section class="metrics-grid" aria-label="Productivity Metrics">
+            <div class="metric-card">
+              <div class="metric-header">
+                <span class="metric-title">Total Tasks</span>
+                <div class="metric-icon total">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="8" y1="6" x2="21" y2="6"></line>
+                    <line x1="8" y1="12" x2="21" y2="12"></line>
+                    <line x1="8" y1="18" x2="21" y2="18"></line>
+                    <line x1="3" y1="6" x2="3.01" y2="6"></line>
+                    <line x1="3" y1="12" x2="3.01" y2="12"></line>
+                    <line x1="3" y1="18" x2="3.01" y2="18"></line>
+                  </svg>
+                </div>
+              </div>
+              <div class="metric-value-row">
+                <span id="statTotal" class="metric-value">0</span>
+                <span class="metric-trend">in queue</span>
+              </div>
+            </div>
+
+            <div class="metric-card">
+              <div class="metric-header">
+                <span class="metric-title">Pending</span>
+                <div class="metric-icon pending">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="12" cy="12" r="10"></circle>
+                    <polyline points="12 6 12 12 16 14"></polyline>
+                  </svg>
+                </div>
+              </div>
+              <div class="metric-value-row">
+                <span id="statPending" class="metric-value">0</span>
+                <span class="metric-trend warning">requires action</span>
+              </div>
+            </div>
+
+            <div class="metric-card">
+              <div class="metric-header">
+                <span class="metric-title">Completed</span>
+                <div class="metric-icon completed">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                    <polyline points="22 4 12 14.01 9 11.01"></polyline>
+                  </svg>
+                </div>
+              </div>
+              <div class="metric-value-row">
+                <span id="statCompleted" class="metric-value">0</span>
+                <span class="metric-trend success">finished</span>
+              </div>
+            </div>
+
+            <div class="metric-card">
+              <div class="metric-header">
+                <span class="metric-title">Completion Rate</span>
+                <div class="metric-icon rate">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="23 6 13.5 15.5 8.5 10.5 1 18"></polyline>
+                    <polyline points="17 6 23 6 23 12"></polyline>
+                  </svg>
+                </div>
+              </div>
+              <div class="metric-value-row">
+                <span id="statRate" class="metric-value">0%</span>
+                <span id="statRateLabel" class="metric-trend highlight">today</span>
+              </div>
+            </div>
+          </section>
+
+          <!-- Daily Productivity Progress Card -->
+          <section class="card progress-card" aria-label="Daily Productivity Progress">
+            <div class="progress-card-header">
+              <div class="progress-card-title-group">
+                <h2 class="section-title">Daily Productivity</h2>
+                <p class="section-subtitle">Track your focus and task completion pace</p>
+              </div>
+              <span id="progressText" class="progress-badge">0% Completed</span>
+            </div>
+            <div class="progress-track" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" id="progressBarContainer">
+              <div id="progressBar" class="progress-fill" style="width: 0%"></div>
+            </div>
+          </section>
+
+          <!-- Create Task Card -->
+          <section class="card form-card" aria-label="Create New Task">
+            <div class="card-header-clean">
+              <h2 class="section-title">Quick Add Task</h2>
+              <span class="text-hint">Press Enter to add quickly</span>
+            </div>
+            
+            <form id="taskForm" class="task-form">
+              <div class="form-row-primary">
+                <div class="form-field flex-grow">
+                  <label for="taskTitleInput" class="sr-only">Task Description</label>
+                  <div class="input-with-icon">
+                    <svg class="field-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                      <circle cx="12" cy="12" r="10"></circle>
+                      <line x1="12" y1="8" x2="12" y2="16"></line>
+                      <line x1="8" y1="12" x2="16" y2="12"></line>
+                    </svg>
+                    <input 
+                      type="text" 
+                      id="taskTitleInput" 
+                      placeholder="What needs to be done next? (e.g., Finalize project roadmap...)" 
+                      required 
+                      autocomplete="off"
+                      maxlength="150"
+                    />
+                  </div>
+                </div>
+              </div>
+
+              <div class="form-row-actions">
+                <div class="form-field-group">
+                  <div class="form-field">
+                    <label for="taskPriorityInput" class="field-label">Priority</label>
+                    <select id="taskPriorityInput" class="select-styled">
+                      <option value="medium" selected>⚡ Medium Priority</option>
+                      <option value="high">🔥 High Priority</option>
+                      <option value="low">🌱 Low Priority</option>
+                    </select>
+                  </div>
+
+                  <div class="form-field">
+                    <label for="taskDateInput" class="field-label">Due Date</label>
+                    <input type="date" id="taskDateInput" class="date-styled" />
+                  </div>
+                </div>
+
+                <button type="submit" id="addTaskBtn" class="btn btn-primary">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="12" y1="5" x2="12" y2="19"></line>
+                    <line x1="5" y1="12" x2="19" y2="12"></line>
+                  </svg>
+                  <span>Add Task</span>
+                </button>
+              </div>
+            </form>
+          </section>
+
+          <!-- Task Management Section (Filters, Search, Task List) -->
+          <section class="tasks-workspace" aria-label="Task Management">
+            <div class="tasks-toolbar">
+              <!-- Filter Tabs -->
+              <div class="filter-tabs" role="tablist" aria-label="Task filters">
+                <button type="button" class="tab-btn active" data-filter="all" role="tab" aria-selected="true">
+                  All <span class="tab-badge" id="badgeAll">0</span>
+                </button>
+                <button type="button" class="tab-btn" data-filter="pending" role="tab" aria-selected="false">
+                  Pending <span class="tab-badge" id="badgePending">0</span>
+                </button>
+                <button type="button" class="tab-btn" data-filter="completed" role="tab" aria-selected="false">
+                  Completed <span class="tab-badge" id="badgeCompleted">0</span>
+                </button>
+              </div>
+
+              <!-- Search and Sort Controls -->
+              <div class="toolbar-controls">
+                <div class="search-box">
+                  <svg class="search-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="11" cy="11" r="8"></circle>
+                    <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                  </svg>
+                  <input type="text" id="searchInput" placeholder="Search tasks..." aria-label="Search tasks" />
+                  <button type="button" id="clearSearchBtn" class="clear-search-btn hidden" aria-label="Clear search">✕</button>
+                </div>
+
+                <div class="sort-box">
+                  <label for="sortSelect" class="sr-only">Sort Tasks</label>
+                  <select id="sortSelect" class="select-styled" title="Sort tasks">
+                    <option value="newest">Sort: Newest First</option>
+                    <option value="oldest">Sort: Oldest First</option>
+                    <option value="dueDate">Sort: Due Date</option>
+                    <option value="priority">Sort: Priority (High to Low)</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+
+            <!-- Task List Container -->
+            <ul id="taskList" class="task-list" aria-label="Task list">
+              <!-- Dynamically rendered via app.js -->
+            </ul>
+
+            <!-- Clean Empty State -->
+            <div id="emptyState" class="empty-state hidden">
+              <div class="empty-icon-box">
+                <svg width="42" height="42" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                  <line x1="16" y1="2" x2="16" y2="6"></line>
+                  <line x1="8" y1="2" x2="8" y2="6"></line>
+                  <line x1="3" y1="10" x2="21" y2="10"></line>
+                  <path d="M9 16l2 2 4-4"></path>
+                </svg>
+              </div>
+              <h3 id="emptyTitle">No tasks found</h3>
+              <p id="emptySubtitle">You have no tasks in this view. Use the form above to add your next task!</p>
+            </div>
+          </section>
+
+        </div>
+
+        <!-- ============================================== -->
+        <!-- VIEW: GEMINI AI ASSISTANT & CHAT               -->
+        <!-- ============================================== -->
+        <div id="viewAssistant" class="view-panel hidden">
+          
+          <!-- API Key Setup Alert (Shown if server reports key is missing) -->
+          <div id="aiKeyAlert" class="card ai-alert-card hidden">
+            <div class="ai-alert-icon">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="10"></circle>
+                <line x1="12" y1="8" x2="12" y2="12"></line>
+                <line x1="12" y1="16" x2="12.01" y2="16"></line>
+              </svg>
+            </div>
+            <div class="ai-alert-text">
+              <h3>Gemini API Key Needed</h3>
+              <p>Add your free Gemini API key to <code>.env</code> as <code>GEMINI_API_KEY=your_key</code> and restart the server to activate real AI chat and planning.</p>
+            </div>
+          </div>
+
+          <!-- Main AI Workspace Grid -->
+          <div class="ai-workspace-grid">
+            
+            <!-- Left: Gemini Productivity Chat -->
+            <section class="card ai-chat-card">
+              <div class="ai-chat-header">
+                <div class="ai-chat-title-group">
+                  <div class="ai-badge-icon">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                      <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+                    </svg>
+                  </div>
+                  <div>
+                    <h2 class="section-title">Gemini AI Productivity Coach</h2>
+                    <p class="section-subtitle">Ask anything about planning, focus, or time management</p>
+                  </div>
+                </div>
+                <div id="chatStatusIndicator" class="ai-status-pill loading">
+                  <span class="ai-status-dot"></span>
+                  <span id="chatStatusText">Connecting...</span>
+                </div>
+              </div>
+
+              <!-- Chat Message Stream -->
+              <div id="aiChatLog" class="ai-chat-log" role="log" aria-live="polite">
+                <!-- Initial welcome message from Gemini -->
+                <div class="chat-message ai">
+                  <div class="chat-avatar">AI</div>
+                  <div class="chat-content">
+                    <p>Hello! I am your <strong>SmartTask AI Coach</strong> powered by Google Gemini. How can I help boost your productivity today?</p>
+                    <p class="chat-hint">Try clicking one of the suggested prompts below or type your question!</p>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Quick Prompt Chips -->
+              <div class="prompt-chips" aria-label="Suggested prompts">
+                <button type="button" class="chip-btn" data-prompt="What should I prioritize first from my pending tasks today?">
+                  🎯 Prioritize my queue
+                </button>
+                <button type="button" class="chip-btn" data-prompt="Give me a 3-step action plan to overcome procrastination right now.">
+                  ⚡ Beat procrastination
+                </button>
+                <button type="button" class="chip-btn" data-prompt="How should I structure a 4-hour deep focus block today?">
+                  ⏱️ Deep work structure
+                </button>
+              </div>
+
+              <!-- Chat Input Form -->
+              <form id="aiChatForm" class="ai-chat-form">
+                <input 
+                  type="text" 
+                  id="aiChatInput" 
+                  placeholder="Ask a productivity question... (e.g., How can I break down a large writing task?)" 
+                  autocomplete="off"
+                  maxlength="1000"
+                />
+                <button type="submit" id="aiChatSendBtn" class="btn btn-primary btn-icon-round" aria-label="Send message" title="Send message">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="22" y1="2" x2="11" y2="13"></line>
+                    <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+                  </svg>
+                </button>
+              </form>
+            </section>
+
+            <!-- Right: Intelligent Task Planning Tools -->
+            <div class="ai-tools-column">
+              
+              <!-- Tool 1: AI Queue Prioritization -->
+              <div class="card ai-tool-card">
+                <div class="ai-tool-header">
+                  <div class="tool-icon priority-opt">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                      <circle cx="12" cy="12" r="10"></circle>
+                      <circle cx="12" cy="12" r="6"></circle>
+                      <circle cx="12" cy="12" r="2"></circle>
+                    </svg>
+                  </div>
+                  <div>
+                    <h3>Prioritize & Optimize Tasks</h3>
+                    <p>Gemini analyzes pending tasks and suggests priority rebalancing.</p>
+                  </div>
+                </div>
+                <button type="button" id="btnAiAnalyzeQueue" class="btn btn-primary btn-sm w-full mt-3">
+                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+                  </svg>
+                  <span>Analyze Pending Queue</span>
+                </button>
+              </div>
+
+              <!-- Tool 2: Daily Schedule Generator -->
+              <div class="card ai-tool-card">
+                <div class="ai-tool-header">
+                  <div class="tool-icon schedule-opt">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                      <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                      <line x1="16" y1="2" x2="16" y2="6"></line>
+                      <line x1="8" y1="2" x2="8" y2="6"></line>
+                      <line x1="3" y1="10" x2="21" y2="10"></line>
+                    </svg>
+                  </div>
+                  <div>
+                    <h3>Generate Daily Schedule</h3>
+                    <p>Creates a time-blocked timeline with focus tips for today.</p>
+                  </div>
+                </div>
+                <button type="button" id="btnAiGenerateSchedule" class="btn btn-secondary btn-sm w-full mt-3">
+                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="12" cy="12" r="10"></circle>
+                    <polyline points="12 6 12 12 16 14"></polyline>
+                  </svg>
+                  <span>Generate Today's Schedule</span>
+                </button>
+              </div>
+
+              <!-- Tool 3: Task Breakdown Quick Trigger -->
+              <div class="card ai-tool-card">
+                <div class="ai-tool-header">
+                  <div class="tool-icon breakdown-opt">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                      <line x1="8" y1="6" x2="21" y2="6"></line>
+                      <line x1="8" y1="12" x2="21" y2="12"></line>
+                      <line x1="8" y1="18" x2="21" y2="18"></line>
+                      <line x1="3" y1="6" x2="3.01" y2="6"></line>
+                      <line x1="3" y1="12" x2="3.01" y2="12"></line>
+                      <line x1="3" y1="18" x2="3.01" y2="18"></line>
+                    </svg>
+                  </div>
+                  <div>
+                    <h3>Break Down Any Complex Task</h3>
+                    <p>Click the <strong>✨ AI</strong> button on any task item to slice it into 3-5 manageable steps.</p>
+                  </div>
+                </div>
+                <button type="button" id="btnFilterHighFromAssistant" class="btn btn-secondary btn-sm w-full mt-3">
+                  <span>View High-Priority Tasks</span>
+                </button>
+              </div>
+
+              <!-- Tool 4: Task Queue Maintenance -->
+              <div class="card ai-tool-card">
+                <div class="ai-tool-header">
+                  <div class="tool-icon clean-opt">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                      <polyline points="3 6 5 6 21 6"></polyline>
+                      <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+                    </svg>
+                  </div>
+                  <div>
+                    <h3>Queue Maintenance</h3>
+                    <p>Declutter your dashboard by removing finished tasks.</p>
+                  </div>
+                </div>
+                <button type="button" id="btnClearCompleted" class="btn btn-danger-outline btn-sm w-full mt-3">
+                  <span>Clean Completed Tasks</span>
+                </button>
+              </div>
+
+            </div>
+
+          </div>
+        </div>
+
+        <!-- ============================================== -->
+        <!-- VIEW: SETTINGS                                 -->
+        <!-- ============================================== -->
+        <div id="viewSettings" class="view-panel hidden">
+          <div class="panel-header">
+            <div>
+              <h2 class="section-title">Application Settings</h2>
+              <p class="section-subtitle">Customize interface preferences, backup your tasks, or manage local data</p>
+            </div>
+          </div>
+
+          <div class="settings-list">
+            <!-- Appearance Setting -->
+            <div class="card settings-card">
+              <div class="settings-card-info">
+                <h3>Theme Appearance</h3>
+                <p>Choose between clean dark mode or bright light mode.</p>
+              </div>
+              <div class="settings-card-action">
+                <button type="button" id="btnSettingsThemeToggle" class="btn btn-secondary">
+                  <span>Toggle Theme</span>
+                </button>
+              </div>
+            </div>
+
+            <!-- Gemini AI Configuration -->
+            <div class="card settings-card">
+              <div class="settings-card-info">
+                <h3>Gemini AI Integration</h3>
+                <p>Powered by server-side Google GenAI SDK. API key is read safely from <code>.env</code>.</p>
+              </div>
+              <div class="settings-card-action">
+                <div id="settingsAiStatusBadge" class="ai-status-pill loading">
+                  <span class="ai-status-dot"></span>
+                  <span id="settingsAiStatusText">Checking...</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Backup & Export -->
+            <div class="card settings-card">
+              <div class="settings-card-info">
+                <h3>Export Tasks (Backup)</h3>
+                <p>Download a JSON backup file of all your current tasks and priorities.</p>
+              </div>
+              <div class="settings-card-action">
+                <button type="button" id="btnExportData" class="btn btn-secondary">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                    <polyline points="7 10 12 15 17 10"></polyline>
+                    <line x1="12" y1="15" x2="12" y2="3"></line>
+                  </svg>
+                  <span>Export JSON</span>
+                </button>
+              </div>
+            </div>
+
+            <!-- Import Data -->
+            <div class="card settings-card">
+              <div class="settings-card-info">
+                <h3>Import Tasks</h3>
+                <p>Restore tasks from a previously saved JSON backup file.</p>
+              </div>
+              <div class="settings-card-action">
+                <label for="importFileInput" class="btn btn-secondary cursor-pointer">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                    <polyline points="17 8 12 3 7 8"></polyline>
+                    <line x1="12" y1="3" x2="12" y2="15"></line>
+                  </svg>
+                  <span>Import JSON</span>
+                </label>
+                <input type="file" id="importFileInput" accept=".json" class="hidden" />
+              </div>
+            </div>
+
+            <!-- Reset to Defaults -->
+            <div class="card settings-card danger-card">
+              <div class="settings-card-info">
+                <h3>Reset Sample Data</h3>
+                <p>Reset the task database to default starter tasks.</p>
+              </div>
+              <div class="settings-card-action">
+                <button type="button" id="btnResetData" class="btn btn-danger-outline">
+                  <span>Reset Data</span>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </main>
+
+      <!-- App Footer -->
+      <footer class="app-footer">
+        <p>SmartTask Pro &bull; Zero external services &bull; 100% private in your browser</p>
+      </footer>
+    </div>
+  </div>
+
+  <!-- ============================================== -->
+  <!-- MODAL: EDIT TASK                               -->
+  <!-- ============================================== -->
+  <div id="editModal" class="modal-backdrop hidden" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3 id="modalTitle">Edit Task</h3>
+        <button type="button" id="closeModalBtn" class="btn-icon" aria-label="Close modal">&times;</button>
+      </div>
+      <form id="editTaskForm">
+        <input type="hidden" id="editTaskId" />
+        
+        <div class="form-field">
+          <label for="editTaskTitle" class="field-label">Task Description *</label>
+          <input type="text" id="editTaskTitle" required maxlength="150" class="input-styled" />
+        </div>
+
+        <div class="modal-grid-row">
+          <div class="form-field">
+            <label for="editTaskPriority" class="field-label">Priority</label>
+            <select id="editTaskPriority" class="select-styled">
+              <option value="high">🔥 High Priority</option>
+              <option value="medium">⚡ Medium Priority</option>
+              <option value="low">🌱 Low Priority</option>
+            </select>
+          </div>
+
+          <div class="form-field">
+            <label for="editTaskDate" class="field-label">Due Date</label>
+            <input type="date" id="editTaskDate" class="date-styled" />
+          </div>
+        </div>
+
+        <div class="modal-actions">
+          <button type="button" id="cancelEditBtn" class="btn btn-secondary">Cancel</button>
+          <button type="submit" class="btn btn-primary">Save Changes</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ============================================== -->
+  <!-- MODAL: DELETE CONFIRMATION                     -->
+  <!-- ============================================== -->
+  <div id="deleteConfirmModal" class="modal-backdrop hidden" role="dialog" aria-modal="true" aria-labelledby="deleteModalTitle">
+    <div class="modal-card modal-card-sm">
+      <div class="modal-header">
+        <h3 id="deleteModalTitle">Confirm Deletion</h3>
+        <button type="button" id="closeDeleteModalBtn" class="btn-icon" aria-label="Close dialog">&times;</button>
+      </div>
+      <div class="delete-modal-body">
+        <div class="delete-warning-icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="3 6 5 6 21 6"></polyline>
+            <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+          </svg>
+        </div>
+        <p id="deleteConfirmMessage">Are you sure you want to delete this task? This action cannot be undone.</p>
+      </div>
+      <div class="modal-actions">
+        <button type="button" id="cancelDeleteBtn" class="btn btn-secondary">Cancel</button>
+        <button type="button" id="confirmDeleteBtn" class="btn btn-danger">Delete Task</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================== -->
+  <!-- MODAL: AI TASK BREAKDOWN CONFIRMATION          -->
+  <!-- ============================================== -->
+  <div id="aiBreakdownModal" class="modal-backdrop hidden" role="dialog" aria-modal="true" aria-labelledby="breakdownModalTitle">
+    <div class="modal-card modal-card-md">
+      <div class="modal-header">
+        <div class="modal-header-with-badge">
+          <div class="badge-icon-sm">✨</div>
+          <h3 id="breakdownModalTitle">AI Task Breakdown</h3>
+        </div>
+        <button type="button" id="closeBreakdownModalBtn" class="btn-icon" aria-label="Close dialog">&times;</button>
+      </div>
+      <div class="modal-body">
+        <p class="modal-subtext">Gemini suggests breaking down <strong id="breakdownSourceTaskTitle">...</strong> into the following actionable subtasks. Select the steps you wish to add to your queue:</p>
+        
+        <div id="breakdownStepsList" class="ai-steps-list">
+          <!-- Steps injected via app.js -->
+        </div>
+      </div>
+      <div class="modal-actions">
+        <button type="button" id="cancelBreakdownBtn" class="btn btn-secondary">Cancel</button>
+        <button type="button" id="applyBreakdownBtn" class="btn btn-primary">Add Selected Steps to Tasks</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================== -->
+  <!-- MODAL: AI PRIORITY OPTIMIZATION CONFIRMATION   -->
+  <!-- ============================================== -->
+  <div id="aiPriorityModal" class="modal-backdrop hidden" role="dialog" aria-modal="true" aria-labelledby="priorityModalTitle">
+    <div class="modal-card modal-card-md">
+      <div class="modal-header">
+        <div class="modal-header-with-badge">
+          <div class="badge-icon-sm">🎯</div>
+          <h3 id="priorityModalTitle">AI Priority Analysis</h3>
+        </div>
+        <button type="button" id="closePriorityModalBtn" class="btn-icon" aria-label="Close dialog">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div class="ai-summary-box">
+          <span class="ai-summary-label">Gemini Assessment:</span>
+          <p id="aiPrioritySummaryText">Analyzing queue...</p>
+          <div id="aiTopFocusBox" class="ai-focus-highlight hidden">
+            <span>🔥 Immediate Focus:</span> <strong id="aiTopFocusTask">...</strong>
+          </div>
+        </div>
+
+        <p class="modal-subtext mt-3">Proposed Priority Adjustments (select which ones to apply):</p>
+        <div id="aiPriorityAdjustmentsList" class="ai-adjustments-list">
+          <!-- Injected via app.js -->
+        </div>
+      </div>
+      <div class="modal-actions">
+        <button type="button" id="cancelPriorityBtn" class="btn btn-secondary">Cancel</button>
+        <button type="button" id="applyPriorityBtn" class="btn btn-primary">Apply Selected Changes</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================== -->
+  <!-- MODAL: AI DAILY SCHEDULE VIEWER                -->
+  <!-- ============================================== -->
+  <div id="aiScheduleModal" class="modal-backdrop hidden" role="dialog" aria-modal="true" aria-labelledby="scheduleModalTitle">
+    <div class="modal-card modal-card-md">
+      <div class="modal-header">
+        <div class="modal-header-with-badge">
+          <div class="badge-icon-sm">📅</div>
+          <h3 id="scheduleModalTitle">Proposed Daily Schedule</h3>
+        </div>
+        <button type="button" id="closeScheduleModalBtn" class="btn-icon" aria-label="Close dialog">&times;</button>
+      </div>
+      <div class="modal-body">
+        <p id="aiScheduleOverviewText" class="modal-subtext">Schedule overview...</p>
+        
+        <div id="aiScheduleBlocksList" class="ai-schedule-list">
+          <!-- Injected via app.js -->
+        </div>
+      </div>
+      <div class="modal-actions">
+        <button type="button" id="copyScheduleBtn" class="btn btn-secondary">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+            <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+          </svg>
+          <span>Copy Schedule</span>
+        </button>
+        <button type="button" id="closeScheduleBtn" class="btn btn-primary">Done</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Notification Container -->
+  <div id="toast" class="toast hidden" role="status" aria-live="polite"></div>
+
+  <!-- JavaScript App Logic -->
+  <script src="app.js"></script>
+</body>
+</html>
